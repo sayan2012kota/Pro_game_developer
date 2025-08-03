@@ -16,16 +16,23 @@ class Ball():
         self.vy = 0
         self.radius = 25
 
+
+
     def draw_ball(self):
         screen.draw.filled_circle((self.x, self.y), self.radius, colour)
 
-ball = Ball(0, 800)
+ball = Ball(100, 50)
+
+
 
 def draw():
+    screen.clear()
     ball.draw_ball()
 
-def update():
-    pass
+def update(dt):
+    uy = ball.vy
+    ball.vy = ball.vy + GRAVITY * dt
+    ball.y = ball.y + (uy + ball.vy) * 0.5 * dt
     
 
 
