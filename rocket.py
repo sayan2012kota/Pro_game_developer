@@ -14,6 +14,9 @@ x = 350
 y = 250
 
 while True:
+    screen.blit(space_bg, (0,0))
+    screen.blit(rocket, (x, y))
+    pygame.display.update()
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
@@ -36,10 +39,7 @@ while True:
             elif  event.type == K_DOWN:
                 keys[3] = False
     if keys[0]:
-        y = y + 1
-    screen.blit(space_bg, (0,0))
-    screen.blit(rocket, (x, y))
-    pygame.display.update()
+        y = y - 5
     y = y + 1 
     sleep(0.05)
 
