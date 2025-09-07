@@ -21,26 +21,35 @@ while True:
         if event.type == QUIT:
             pygame.quit()
         if event.type == KEYDOWN:
-            if event.type == K_UP:
+            if event.key == K_UP:
                 keys[0] = True
-            elif event.type == K_RIGHT:
+            elif event.key == K_RIGHT:
                 keys[1] = True
-            elif event.type == K_LEFT:
+            elif event.key == K_LEFT:
                 keys[2] = True
-            elif  event.type == K_DOWN:
+            elif  event.key == K_DOWN:
                 keys[3] = True
         if event.type == KEYUP:
-            if event.type == K_UP:
+            if event.key == K_UP:
                 keys[0] = False
-            elif event.type == K_RIGHT:
+            elif event.key == K_RIGHT:
                 keys[1] = False
-            elif event.type == K_LEFT:
+            elif event.key == K_LEFT:
                 keys[2] = False
-            elif  event.type == K_DOWN:
+            elif  event.key == K_DOWN:
                 keys[3] = False
+            
     if keys[0]:
         y = y - 5
+    elif keys[1]:
+        if x < 575:
+            x = x + 5 
+    elif keys[2]:
+        if x > -25:
+            x = x - 5  
+    
     y = y + 1 
     sleep(0.05)
+    
 
     
