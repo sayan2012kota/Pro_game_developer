@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+pygame.font.init()
 pygame.init()
 
 screen = pygame.display.set_mode((1000, 800))
@@ -12,19 +13,34 @@ yellow_spaceship_resize = pygame.transform.scale(yellow_spaceship, (50, 40))
 yellow_spaceship = pygame.transform.rotate(yellow_spaceship_resize, (90))
 red_spaceship_resize = pygame.transform.scale(red_spaceship, (50, 40))
 red_spaceship = pygame.transform.rotate(red_spaceship_resize, (270))
+H_font = pygame.font.SysFont("Calibra", 40)
 
 rect = pygame.Rect(495, 0, 10, 800)
 
-def draw_window():
+def draw_window(Y_rect, R_rect):
     screen.blit(space_bg, (0,0))
     pygame.draw.rect(screen, "black", rect)
-    screen.blit(yellow_spaceship, (200, 400))
-    screen.blit(red_spaceship, (800, 400))
+    screen.blit(yellow_spaceship, (Y_rect.x, Y_rect.y))
+    screen.blit(red_spaceship, (R_rect.x, R_rect.y))
+    Yellow_health_text = H_font.render("HEALTH: "+str(Y_health), 1, "white")
+    Red_health_text = H_font.render("HEALTH: "+str(R_health), 1, "white")
+    screen.blit(Yellow_health_text, (10, 10))
+    screen.blit(Red_health_text, (820, 10))
+    
+def move_y(key_press, Y_rect):
+    if key_press[pygame.K_a] and Y_rect.x > 0:
+        Y_rect.x = Y_rect.x - 10
 
 
 while True:
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
+    key_press = pygame.key.get_pressed()
+    Y_rect = pygame.Rect(200, 400, 50, 40)
+    R_rect = pygame.Rect(800, 400, 50, 40)
+    Y_health = 10
+    R_health = 10
+    move_y(key_press, Y_rect)
+    draw_window(Y_rect, R_rect)
     pygame.display.update()
-    draw_window()
