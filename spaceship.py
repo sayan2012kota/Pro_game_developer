@@ -26,13 +26,32 @@ def draw_window(Y_rect, R_rect):
     Red_health_text = H_font.render("HEALTH: "+str(R_health), 1, "white")
     screen.blit(Yellow_health_text, (10, 10))
     screen.blit(Red_health_text, (820, 10))
+    pygame.display.update()
     
 def move_y(key_press, Y_rect):
-    if key_press[pygame.K_a] and Y_rect.x > 0:
+    if key_press[pygame.K_LEFT] and Y_rect.x > 0:
         Y_rect.x = Y_rect.x - 10
+    if key_press[pygame.K_RIGHT] and Y_rect.x < 495:
+        Y_rect.x = Y_rect.x + 10
+    if key_press[pygame.K_UP] and Y_rect.y > 0:
+        Y_rect.y = Y_rect.y - 10
+    if key_press[pygame.K_DOWN] and Y_rect.y < 800:
+        Y_rect.y = Y_rect.y + 10
 
+def move_r(red_keys, R_rect):
+    if red_keys[pygame.K_a] and R_rect.x > 505:
+        R_rect.x = R_rect.x - 10
+    if red_keys[pygame.K_d] and R_rect.x < 1000:
+        R_rect.x = R_rect.x + 10
+    if red_keys[pygame.K_w] and R_rect.y > 0:
+        R_rect.y = R_rect.y - 10
+    if red_keys[pygame.K_s] and R_rect.y < 800:
+        R_rect.y = R_rect.y + 10
+
+clock = pygame.time.Clock()
 
 while True:
+    clock.tick(60)
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
@@ -42,5 +61,6 @@ while True:
     Y_health = 10
     R_health = 10
     move_y(key_press, Y_rect)
+    move_r(key_press, R_rect)
     draw_window(Y_rect, R_rect)
     pygame.display.update()
