@@ -17,7 +17,7 @@ H_font = pygame.font.SysFont("Calibra", 40)
 
 rect = pygame.Rect(495, 0, 10, 800)
 
-def draw_window(Y_rect, R_rect):
+def draw_window(Y_rect, R_rect, R_bullets, Y_bullets):
     screen.blit(space_bg, (0,0))
     pygame.draw.rect(screen, "black", rect)
     screen.blit(yellow_spaceship, (Y_rect.x, Y_rect.y))
@@ -26,6 +26,10 @@ def draw_window(Y_rect, R_rect):
     Red_health_text = H_font.render("HEALTH: "+str(R_health), 1, "white")
     screen.blit(Yellow_health_text, (10, 10))
     screen.blit(Red_health_text, (820, 10))
+    for bullet in R_bullets:
+        pygame.draw.rect(screen, "red", bullet)
+    for bullet2 in Y_bullets:
+        pygame.draw.rect(screen, "yellow", bullet2)
     pygame.display.update()
     
 def move_y(key_press, Y_rect):
@@ -49,18 +53,34 @@ def move_r(red_keys, R_rect):
         R_rect.y = R_rect.y + 10
 
 clock = pygame.time.Clock()
+Y_rect = pygame.Rect(200, 400, 50, 40)
+R_rect = pygame.Rect(800, 400, 50, 40)
+
+max_bullets = 8
+velocity = 8
+
+yellow_health = 10
+red_health = 10
+
+Y_bullets = []
+R_bullets = []
 
 while True:
     clock.tick(60)
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
+        if event.type == KEYDOWN:
+            if event.key == K_LCTRL and len(R_bullets) < max_bullets:
+                bullet = pygame.Rect(R_rect.x, R_rect.y + 20, 10, 5)
+                R_bullets.append(bullet)
+            if event.key == K_RCTRL and len(Y_bullets) < max_bullets:
+                bullet2 = pygame.Rect(Y_rect.x + 40, Y_rect.y + 20, 10, 5)
+                Y_bullets.append(bullet2)
     key_press = pygame.key.get_pressed()
-    Y_rect = pygame.Rect(200, 400, 50, 40)
-    R_rect = pygame.Rect(800, 400, 50, 40)
     Y_health = 10
     R_health = 10
     move_y(key_press, Y_rect)
     move_r(key_press, R_rect)
-    draw_window(Y_rect, R_rect)
+    draw_window(Y_rect, R_rect, R_bullets, Y_bullets)
     pygame.display.update()
