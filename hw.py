@@ -1,55 +1,27 @@
-import pygame
-pygame.init()
+from tkinter import *
+import calendar
+def month_calendar():
+    second_window = Tk()
+    second_window.geometry("560x620")
+    year = entry.get()
+    year = int(year)
+    calend = calendar.calendar(year)
+    label3 = Label(second_window, text = (calend))
+    label3.place(x=10, y=10)
+window = Tk()
+window.config(background = "blue")
+window.geometry("600x540")
+window.resizable(False, False)
+label = Label(window, text = "Calendar", background = "grey", font = ("Calibra", 100 ))
+label.place(x=0, y = 0)
+label2 = Label(window, text = "Enter Year", background = "light green", font = ("Calibra", 15))
+label2.place(x=250, y=170)
+entry = Entry(window, width = 25)
+entry.place(x=210, y=200)
+button = Button(window, text = "Show Calendar", background = "red", font = ("Calibra", 17), width = 15, command = month_calendar)
+button.place(x=185, y=221)
+button2 = Button(window, text = "Exit", background = "red", font = ("Calibra", 17), width = 5, command=window.destroy)
+button2.place(x=255, y=268)
 
-screen = pygame.display.set_mode((1000, 1000))
-screen.fill("white")
-
-pygame.display.update()
-run = True
-
-class Shapes():
-    def __init__(self,x, y, length, height, width, colour):
-        self.x = x
-        self.y = y
-        self.length = length
-        self.height = height
-        self.width = width
-        self.colour = colour
-        self.surface = screen
-
-    def draw_rect(self):
-        pygame.draw.rect(self.surface, self.colour, (self.x, self.y, self.length, self.height), self.width)
-
-    def increase_size(self):
-        self.length = self.length + 10
-        self.height = self.height + 10
-        self.draw_rect()
-
-rect = Shapes(750, 500, 50, 50, 3, "red")
-rect_2 = Shapes(250, 500, 100, 70, 5, "green")
-
-while run:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            rect.draw_rect()
-            rect_2.draw_rect()
-            pygame.display.update()
-        elif event.type ==  pygame.MOUSEBUTTONUP:
-            rect.increase_size()
-            rect_2.increase_size()
-            pygame.display.update()
-
-
-
-
-
-
-
-
-
-
-
-
-
+                
+window.mainloop()
